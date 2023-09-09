@@ -1,0 +1,13 @@
+color = ''
+project-name = 'default'
+[default]
+account_id = 'acct_1JKxX1FShFF9vqv7'
+device_name = 'Alis-MacBook-Pro.local'
+display_name = 'brickhouse.io'
+live_mode_api_key = 'rk_live_***********************************************************************************************RITX'
+live_mode_key_expires_at = '2023-11-24'
+live_mode_pub_key = 'pk_live_51JKxX1FShFF9vqv7hSkFmOxFGJefyzxAha9TEtiOIF9RepZ9NYyEEjwFtVgH39v1cG2vANgJUZYgVBk7mwPvkluJ006DJkJgoG'
+test_mode_api_key = 'rk_test_51JKxX1FShFF9vqv7gnR76GD24wVqmBEEwk1Tyllh8rZ4oE6y091nmwQ4qrlIIjOhk5sJZNRz7L0AjZhgj7jUuy8g00H7KqE8Ay'
+test_mode_key_expires_at = '2023-11-24'
+test_mode_pub_key = 'pk_test_51JKxX1FShFF9vqv730p7Vld1iKrmfi6elV9oFfBnVyPFcbvlcJ9dcrxEXiyomXUtf0kqtR2BwlxGLK5uQ0dIykcy00uaIZv0ms'
+

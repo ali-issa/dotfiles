@@ -24,7 +24,7 @@ function M.config()
     sources = {
       formatting.prettier.with {
         extra_filetypes = { "toml" },
-        extra_args = { "--no-semi", "--double-quote", "--jsx-double-quote" },
+        extra_args = { "--double-quote", "--jsx-double-quote", "--ts-double-quote" },
       },
       formatting.black.with { extra_args = { "--fast" } },
       formatting.stylua,

@@ -1,0 +1,31 @@
+[global_config]
+  enabled_plugins = LaunchpadCodeURLHandler, APTURLHandler, LaunchpadBugURLHandler
+  suppress_multiple_term_dialog = True
+  borderless = True
+[keybindings]
+[profiles]
+  [[default]]
+    allow_bold = False
+    background_darkness = 0.95
+    background_type = transparent
+    font = Hack Nerd Font Mono 14.5
+    foreground_color = "#31353f"
+    background_color = "#181a1f"
+    show_titlebar = False
+    scrollbar_position = hidden
+    scrollback_lines = 5120
+    scrollback_infinite = True
+    use_system_font = False
+    copy_on_selection = True
+    use_custom_command = True
+    custom_command = "/opt/homebrew/bin/fish"
+[layouts]
+  [[default]]
+    [[[window0]]]
+      type = Window
+      parent = ""
+      size = 1800 , 1125
+      position = 0:0
+    [[[child1]]]
+      type = Terminal
+      parent = window0

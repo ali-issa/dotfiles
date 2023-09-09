@@ -22,6 +22,9 @@ keymap("n", "<C-j>", "<C-w>j", opts)
 keymap("n", "<C-k>", "<C-w>k", opts)
 keymap("n", "<C-l>", "<C-w>l", opts)
 
+--Yank all
+keymap("n", "<leader>ya", "ggyG", opts)
+
 -- Rlative numbers
 keymap("n", "<leader>rn", "<cmd> set rnu! <CR>", opts)
 
@@ -43,8 +46,7 @@ keymap("n", "<Esc>", "<cmd>nohlsearch<CR>", opts)
 
 -- Close buffers
 keymap("n", "<leader>;", "<cmd>Bdelete!<CR>", opts)
-keymap("n", "<leader>bh", "<cmd>BufferLineCloseLeft<CR>", opts)
-keymap("n", "<leader>bl", "<cmd>BufferLineCloseRight<CR>", opts)
+keymap("n", "<leader>bc", "<cmd>BufferLineCloseOther<CR>", opts)
 keymap("n", "<leader>bp", "<cmd>BufferLinePick<CR>", opts)
 
 -- Better paste
@@ -97,6 +99,8 @@ keymap("n", "<leader>gg", "<cmd>lua _LAZYGIT_TOGGLE()<CR>", opts)
 -- Comment
 keymap("n", "<leader>/", "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>", opts)
 keymap("x", "<leader>/", "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>", opts)
+keymap("n", "<leader>?", "<cmd>lua require('Comment.api').toggle.blockwise.current()<CR>", opts)
+keymap("x", "<leader>?", "<esc><cmd>lua require('Comment.api').toggle.blockwise(vim.fn.visualmode())<CR>", opts)
 
 -- DAP
 keymap("n", "<leader>db", "<cmd>lua require'dap'.toggle_breakpoint()<cr>", opts)
@@ -116,6 +120,9 @@ end, opts)
 keymap("n", "<leader>dpr", function()
   require("dap-python").test_method()
 end, opts)
+
+-- Save without format
+keymap("n", "<leader>sn", ":noa w<cr>", opts)
 
 -- Lsp
 keymap("n", "<leader>fm", "<cmd>lua vim.lsp.buf.format{ async = true }<cr>", opts)

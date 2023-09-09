@@ -14,6 +14,8 @@ M.servers = {
   "marksman",
   "rust_analyzer",
   "emmet_ls",
+  "svelte",
+  "prismals",
 }
 
 return M

@@ -1,7 +1,6 @@
 local M = {
   "mickael-menu/zk-nvim",
-  -- ft = { "markdown" },
-  lazy = false,
+  ft = { "markdown" },
 }
 
 function M.config()

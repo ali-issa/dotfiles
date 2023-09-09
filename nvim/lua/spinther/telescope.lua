@@ -26,6 +26,11 @@ M.opts = {
       },
     },
   },
+  pickers = {
+    find_files = {
+      hidden = true,
+    },
+  },
 }
 
 return M

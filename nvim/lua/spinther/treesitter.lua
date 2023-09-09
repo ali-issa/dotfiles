@@ -33,16 +33,21 @@ function M.config()
       "vim",
       "json",
       "http",
-    }, -- put the language you want in this array
+      "svelte",
+      "prisma",
+    },                       -- put the language you want in this array
     -- ensure_installed = "all", -- one of "all" or a list of languages
     ignore_install = { "" }, -- List of parsers to ignore installing
-    sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
+    sync_install = false,    -- install languages synchronously (only applied to `ensure_installed`)
 
     highlight = {
-      enable = true, -- false will disable the whole extension
+      enable = true,       -- false will disable the whole extension
       disable = { "css" }, -- list of language that will be disabled
     },
     autopairs = {
+      enable = true,
+    },
+    autotag = {
       enable = true,
     },
     indent = { enable = true, disable = { "python", "css" } },
