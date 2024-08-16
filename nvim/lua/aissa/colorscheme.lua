@@ -51,6 +51,7 @@ function M.config()
       TelescopePromptBorder = { fg = "#353742" },
       TelescopeResultsBorder = { fg = "#353742" },
       TelescopePreviewBorder = { fg = "#353742" },
+      TelescopeBorder = { fg = "#353742" },
     }, -- Override highlight groups
 
     -- Plugins Config --

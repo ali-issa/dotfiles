@@ -149,8 +149,11 @@ function M.config()
       select = false,
     },
     window = {
-      completion = cmp.config.window.bordered(),
-      documentation = cmp.config.window.bordered(),
+      completion = cmp.config.window.bordered {
+        border = "rounded",
+        winhighlight = "NormalFloat:TelescopeNormal,FloatBorder:TelescopeBorder",
+      },
+      -- documentation = cmp.config.window.bordered(),
     },
     experimental = {
       ghost_text = true,
