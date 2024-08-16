@@ -48,6 +48,9 @@ function M.config()
       TabLineSel = { fg = "#353742", bg = "#353742" },
       WinSeparator = { fg = "#353742" },
 
+      NormalFloat = { bg = "none" },
+      FloatBorder = { fg = "#353742", bg = "none" },
+
       TelescopePromptBorder = { fg = "#353742" },
       TelescopeResultsBorder = { fg = "#353742" },
       TelescopePreviewBorder = { fg = "#353742" },
