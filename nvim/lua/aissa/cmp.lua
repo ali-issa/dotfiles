@@ -153,7 +153,11 @@ function M.config()
         border = "rounded",
         winhighlight = "NormalFloat:TelescopeNormal,FloatBorder:TelescopeBorder",
       },
-      -- documentation = cmp.config.window.bordered(),
+
+      documentation = cmp.config.window.bordered {
+        border = "rounded",
+        winhighlight = "NormalFloat:TelescopeNormal,FloatBorder:TelescopeBorder",
+      },
     },
     experimental = {
       ghost_text = true,
