@@ -1,0 +1,18 @@
+# Machine-specific variables
+fish_variables
+java_version
+env.fish
+aider.fish
+
+# Plugin-generated files (if you use Fisher to manage these)
+functions/_*.fish
+functions/fisher.fish
+functions/fzf_*.fish
+functions/nvm.fish
+
+# Any potential credentials or tokens
+**/credentials.fish
+**/tokens.fish
+
+# Other
+.DS_Store

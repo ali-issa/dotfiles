@@ -1,0 +1,27 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+command_timeout = 10000
+
+palette = "custom"
+
+[palettes.custom]
+black = "#1D1E20"
+red = "#E7656D"
+green = "#69AB72"
+blue = "#56A8F5"
+yellow = "#B2AE6A"
+purple = "#C97EBC"
+cyan = "#2DABB9"
+white = "#BBBEC3"
+orange = "#CF8E6E"
+grey = "#7A7D85"
+bright-black = "#1F2023"
+
+[directory]
+style = "white"
+
+[character]
+success_symbol = "[❯](blue)"
+error_symbol = "[❯](red)"
+vimcmd_symbol = "[❮](green)"
