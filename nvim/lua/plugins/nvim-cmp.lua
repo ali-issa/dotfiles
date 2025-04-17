@@ -20,6 +20,10 @@ return {
 
     local luasnip = require("luasnip")
 
+    local ELLIPSIS_CHAR = "… "
+    local MAX_LABEL_WIDTH = 25
+    local MIN_LABEL_WIDTH = 25
+
     -- local lspkind = require("lspkind")
     local cmp_kinds = {
       Text = "",
@@ -95,7 +99,7 @@ return {
       formatting = {
         expandable_indicator = true,
         fields = { "abbr", "kind" }, -- Change order: put abbr first, kind second
-        format = function(_, vim_item)
+        format = function(entry, vim_item)
           -- Get the original kind string and icon
           local kind_text = vim_item.kind
           local kind_icon = cmp_kinds[vim_item.kind] or ""
@@ -103,9 +107,14 @@ return {
           -- Simple format: just kind name followed by icon
           vim_item.kind = kind_icon .. "  " .. kind_text
 
-          -- Add fixed padding between abbr and kind
-          vim_item.abbr = vim_item.abbr .. string.rep(" ", 10)
-
+          local label = vim_item.abbr
+          local truncated_label = vim.fn.strcharpart(label, 0, MAX_LABEL_WIDTH)
+          if truncated_label ~= label then
+            vim_item.abbr = truncated_label .. ELLIPSIS_CHAR
+          elseif string.len(label) < MIN_LABEL_WIDTH then
+            local padding = string.rep(" ", MIN_LABEL_WIDTH - string.len(label))
+            vim_item.abbr = label .. padding
+          end
           return vim_item
         end,
       },
