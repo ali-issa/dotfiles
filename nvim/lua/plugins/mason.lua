@@ -29,7 +29,9 @@ return {
         "prismals",
         "gopls",
         "clangd",
-        "harper-ls",
+        "harper_ls",
+        "sqls",
+        "protols",
       },
     })
   end,

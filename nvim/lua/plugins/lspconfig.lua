@@ -181,6 +181,34 @@ return {
           },
         })
       end,
+      ["sqls"] = function()
+        lspconfig["sqls"].setup({
+          capabilities = capabilities,
+          filetypes = { "sql" },
+          settings = {
+            sqls = {
+              connections = {
+                {
+                  driver = "postgresql",
+                  dataSourceName = "host=127.0.0.1 port=5432 user=postgres dbname=rapide-go sslmode=disable",
+                },
+              },
+            },
+          },
+        })
+      end,
+      ["protols"] = function()
+        lspconfig["protols"].setup({
+          capabilities = capabilities,
+        })
+      end,
+      ["clangd"] = function()
+        lspconfig["clangd"].setup({
+          capabilities = capabilities,
+          settings = {},
+          filetypes = { "c", "cpp", "objc", "objcpp" },
+        })
+      end,
       ["harper_ls"] = function()
         lspconfig["harper_ls"].setup({
           capabilities = capabilities,

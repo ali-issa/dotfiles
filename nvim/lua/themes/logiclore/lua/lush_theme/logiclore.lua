@@ -240,7 +240,7 @@ local theme = lush(function(injected_functions)
 
     -- Common vim syntax groups used for all kinds of code and markup.
     -- See :h group-name
-    Comment({ fg = palette.light_grey }), -- Any comment
+    Comment({ fg = palette.light_grey, itlaic = true }), -- Any comment
 
     -- sym"@text.literal"      { }, -- Comment
     -- sym"@text.reference"    { }, -- Identifier
