@@ -2,19 +2,23 @@ return {
   "neovim/nvim-lspconfig",
   event = { "BufReadPre", "BufNewFile" },
   dependencies = {
+    -- LSP Support
+    "williamboman/mason.nvim",
+    "williamboman/mason-lspconfig.nvim",
+
+    -- Autocompletion
     "hrsh7th/cmp-nvim-lsp",
-    {
+    { -- Optional: Provides type definitions for Lua development in Neovim
       "folke/lazydev.nvim",
       ft = "lua", -- only load on lua files
       opts = {
         library = {
-          -- See the configuration section for more details
           -- Load luvit types when the `vim.uv` word is found
           { path = "${3rd}/luv/library", words = { "vim%.uv" } },
         },
       },
     },
-    { -- optional cmp completion source for require statements and module annotations
+    { -- Optional: cmp completion source for lazydev
       "hrsh7th/nvim-cmp",
       opts = function(_, opts)
         opts.sources = opts.sources or {}
@@ -24,14 +28,49 @@ return {
         })
       end,
     },
+    -- Optional: Add convenient UI for LSP actions
+    { "folke/fzf-lua", enabled = true }, -- Assuming fzf-lua is used for some keymaps
   },
+
   config = function()
     -- import lspconfig plugin
     local lspconfig = require("lspconfig")
 
+    local ensure_installed = {
+      "lua_ls",
+      "eslint",
+      "bashls",
+      "clangd",
+      "cssls",
+      "dockerls",
+      "emmet_ls",
+      "gopls",
+      "graphql",
+      "html",
+      "jsonls",
+      "marksman", -- For Markdown
+      "pyright",
+      "sqls",
+      "svelte",
+      "tailwindcss",
+      "yamlls",
+      "harper_ls", -- Your spelling/grammar checker
+      "ts_ls",
+      "intelephense",
+      "rust_analyzer",
+      "prismals",
+      "solidity_ls_nomicfoundation",
+    }
+
+    -- Setup Mason and ensure specified LSPs are installed
+    require("mason").setup()
+
     -- import mason_lspconfig plugin
     local mason_lspconfig = require("mason-lspconfig")
 
+    mason_lspconfig.setup({
+      ensure_installed = ensure_installed,
+    })
     -- import cmp-nvim-lsp plugin
     local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
@@ -124,7 +163,7 @@ return {
         -- configure svelte server
         lspconfig["svelte"].setup({
           capabilities = capabilities,
-          on_attach = function(client, bufnr)
+          on_attach = function(client)
             vim.api.nvim_create_autocmd("BufWritePost", {
               pattern = { "*.js", "*.ts" },
               callback = function(ctx)
@@ -164,6 +203,12 @@ return {
           },
         })
       end,
+      ["solidity_ls_nomicfoundation"] = function()
+        lspconfig["solidity_ls_nomicfoundation"].setup({
+          capabilities = capabilities,
+          filetypes = { "solidity" },
+        })
+      end,
       ["lua_ls"] = function()
         -- configure lua server (with special settings)
         lspconfig["lua_ls"].setup({
@@ -195,11 +240,6 @@ return {
               },
             },
           },
-        })
-      end,
-      ["protols"] = function()
-        lspconfig["protols"].setup({
-          capabilities = capabilities,
         })
       end,
       ["clangd"] = function()

@@ -1,7 +1,17 @@
 return {
   "nvim-tree/nvim-tree.lua",
   dependencies = "nvim-tree/nvim-web-devicons",
+
   opts = {
+    diagnostics = {
+      enable = true,
+      icons = {
+        hint = "󰠠",
+        info = "",
+        warning = "",
+        error = "",
+      },
+    },
     update_focused_file = {
       enable = true,
       update_cwd = false,

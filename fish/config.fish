@@ -2,6 +2,13 @@
 # Remove Fish greeting
 set -g fish_greeting
 
+# Android SDK
+set -gx ANDROID_HOME ~/Library/Android/sdk
+set -gx PATH $PATH $ANDROID_HOME/emulator
+set -gx PATH $PATH $ANDROID_HOME/tools
+set -gx PATH $PATH $ANDROID_HOME/tools/bin
+set -gx PATH $PATH $ANDROID_HOME/platform-tools
+
 if status is-interactive
     # Commands to run in interactive sessions can go here
 end
@@ -32,9 +39,14 @@ function ask
     aichat $argv
 end
 
+function oc --wraps opencode --description 'alias oc=opencode'
+    opencode $argv
+end
+
 # ===== PROGRAMMING LANGUAGES =====
 # Go configuration
 set -gx PATH $HOME/go/bin $PATH
+set -gx AICHAT_CONFIG_DIR $HOME/.config/aichat
 
 # Python - pyenv (uncomment if needed)
 # pyenv init - | source
@@ -76,3 +88,13 @@ set -gx PATH $PATH $HOME/.cache/lm-studio/bin
 if test -f "$HOME/Downloads/google-cloud-sdk/path.fish.inc"
     source "$HOME/Downloads/google-cloud-sdk/path.fish.inc"
 end
+set -gx PATH /opt/homebrew/opt/php@8.2/bin $PATH
+set -gx PATH /opt/homebrew/opt/php@8.2/sbin $PATH
+
+# Added by LM Studio CLI (lms)
+set -gx PATH $PATH /Users/aliissa/.cache/lm-studio/bin
+# End of LM Studio CLI section
+
+
+# Added by `rbenv init` on Sun Aug 24 16:32:54 PDT 2025
+status --is-interactive; and rbenv init - --no-rehash fish | source

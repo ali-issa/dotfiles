@@ -239,7 +239,7 @@ return {
       "<cmd>FzfLua autocmds<cr>",
       desc = "Auto Commands",
     },
-    { "<leader>sb", "<cmd>FzfLua grep_curbuf<cr>", desc = "Buffer" },
+    { "<leader>fb", "<cmd>FzfLua grep_curbuf<cr>", desc = "Buffer" },
     {
       "<leader>sc",
       "<cmd>FzfLua command_history<cr>",

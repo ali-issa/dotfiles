@@ -26,7 +26,7 @@ map("n", "<C-l>", "<C-w>l", opts)
 map("n", "<leader>ya", "ggyG", opts)
 
 -- Relative numbers
-map("n", "<leader>ln", "<cmd>set rnu!<CR>", opts)
+map("n", "<leader>r", "<cmd>set rnu!<CR>", opts)
 
 -- Resize with arrows
 map("n", "<A-Up>", ":resize -2<CR>", opts)
@@ -122,11 +122,18 @@ map(
 map("n", "<leader>", "<cmd>lua require('barbecue.ui').toggle()<CR>", opts)
 
 -- Replace `d` and `c` motions to delete/change without yanking (use black hole register)
-map("n", "d", '"_d', { noremap = true })
-map("n", "c", '"_c', { noremap = true })
+-- map("n", "d", '"_d', { noremap = true })
+-- map("n", "c", '"_c', { noremap = true })
 
 -- Toggle fold
 map("n", "<Tab>", "za", { noremap = true, silent = true, desc = "Toggle fold" })
 
 -- New file in a separate buffer
 map("n", "<leader>n", "<cmd>enew<CR>", opts)
+
+-- Save without formatting
+map("n", "<C-s>", ":noa w<CR>", opts)
+
+map("n", "<leader>a", ":b#<CR>", opts)
+map("n", "<leader>bn", ":bnext<CR>", opts)
+map("n", "<leader>bb", ":bprev<CR>", opts)

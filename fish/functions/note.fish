@@ -16,15 +16,10 @@ function note --description "Create and open a new timestamped note in nvim"
 
     # Generate the filename using the current date and time.
     # Format: YYYY-MM-DD_HHMMSS.md
-    # Fish uses parentheses () for command substitution.
     set filename $notes_dir/(date +%Y-%m-%d_%H%M%S).md
 
     # Define the nvim command to insert the formatted header.
     # Uses nvim's strftime function.
-    # Single quotes around the command string ensure that the double quotes
-    # required by nvim's ':put =' expression are passed literally.
-    # The '#' inside the strftime format needs to be quoted or escaped
-    # in Fish if not inside single quotes, but here it's fine.
     set header_cmd ':put =strftime(\"# %A, %B %d, %Y at %H:%M:%S\")'
 
     # Define the nvim command to insert a newline character after the header.
