@@ -8,33 +8,30 @@ return {
 
     -- Autocompletion
     "hrsh7th/cmp-nvim-lsp",
-    { -- Optional: Provides type definitions for Lua development in Neovim
+    { -- Lua typing support
       "folke/lazydev.nvim",
-      ft = "lua", -- only load on lua files
+      ft = "lua",
       opts = {
         library = {
-          -- Load luvit types when the `vim.uv` word is found
           { path = "${3rd}/luv/library", words = { "vim%.uv" } },
         },
       },
     },
-    { -- Optional: cmp completion source for lazydev
+    { -- cmp source for lazydev
       "hrsh7th/nvim-cmp",
       opts = function(_, opts)
         opts.sources = opts.sources or {}
         table.insert(opts.sources, {
           name = "lazydev",
-          group_index = 0, -- set group index to 0 to skip loading LuaLS completions
+          group_index = 0,
         })
       end,
     },
-    -- Optional: Add convenient UI for LSP actions
-    { "folke/fzf-lua", enabled = true }, -- Assuming fzf-lua is used for some keymaps
+    { "ibhagwan/fzf-lua", enabled = true },
   },
 
   config = function()
-    -- import lspconfig plugin
-    local lspconfig = require("lspconfig")
+    -- local util = require("lspconfig.util")
 
     local ensure_installed = {
       "lua_ls",
@@ -45,16 +42,16 @@ return {
       "dockerls",
       "emmet_ls",
       "gopls",
-      "graphql",
+      -- "graphql",
       "html",
       "jsonls",
-      "marksman", -- For Markdown
+      "marksman",
       "pyright",
       "sqls",
       "svelte",
       "tailwindcss",
       "yamlls",
-      "harper_ls", -- Your spelling/grammar checker
+      -- "harper_ls",
       "ts_ls",
       "intelephense",
       "rust_analyzer",
@@ -62,89 +59,62 @@ return {
       "solidity_ls_nomicfoundation",
     }
 
-    -- Setup Mason and ensure specified LSPs are installed
     require("mason").setup()
-
-    -- import mason_lspconfig plugin
-    local mason_lspconfig = require("mason-lspconfig")
-
-    mason_lspconfig.setup({
+    require("mason-lspconfig").setup({
       ensure_installed = ensure_installed,
+      automatic_enable = true,
     })
-    -- import cmp-nvim-lsp plugin
-    local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
-    local keymap = vim.keymap -- for conciseness
+    local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
     vim.o.winborder = "rounded"
-
     vim.diagnostic.config({
       virtual_text = true,
-      float = {
-        source = "if_many",
-        border = "rounded",
-      },
+      float = { source = "if_many", border = "rounded" },
     })
 
+    -- LSP keymaps
     vim.api.nvim_create_autocmd("LspAttach", {
       group = vim.api.nvim_create_augroup("UserLspConfig", {}),
       callback = function(ev)
-        -- Buffer local mappings.
-        -- See `:help vim.lsp.*` for documentation on any of the below functions
+        local keymap = vim.keymap
         local opts = { buffer = ev.buf, silent = true }
 
-        -- set keybinds
         opts.desc = "Show LSP references"
-        keymap.set("n", "gR", "<cmd>FzfLua lsp_references<CR>", opts) -- show definition, references
-
+        keymap.set("n", "gR", "<cmd>FzfLua lsp_references<CR>", opts)
         opts.desc = "Go to declaration"
-        keymap.set("n", "gD", vim.lsp.buf.declaration, opts) -- go to declaration
-
+        keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
         opts.desc = "Show LSP definitions"
-        keymap.set("n", "gd", "<cmd>FzfLua lsp_definitions<CR>", opts) -- show lsp definitions
-
+        keymap.set("n", "gd", "<cmd>FzfLua lsp_definitions<CR>", opts)
         opts.desc = "Show LSP implementations"
-        keymap.set("n", "gi", "<cmd>FzfLua lsp_implementations<CR>", opts) -- show lsp implementations
-
+        keymap.set("n", "gi", "<cmd>FzfLua lsp_implementations<CR>", opts)
         opts.desc = "Show LSP type definitions"
-        keymap.set("n", "gt", "<cmd>FzfLua lsp_type_definitions<CR>", opts) -- show lsp type definitions
-
-        opts.desc = "See available code actions"
-        keymap.set({ "n", "v" }, "<leader>la", vim.lsp.buf.code_action, opts) -- see available code actions, in visual mode will apply to selection
-
+        keymap.set("n", "gt", "<cmd>FzfLua lsp_type_definitions<CR>", opts)
+        opts.desc = "See code actions"
+        keymap.set({ "n", "v" }, "<leader>la", vim.lsp.buf.code_action, opts)
         opts.desc = "Smart rename"
-        keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts) -- smart rename
-
-        opts.desc = "Show buffer diagnostics"
+        keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+        opts.desc = "Buffer diagnostics"
         keymap.set(
           "n",
           "<leader>D",
           "<cmd>FzfLua diagnostics bufnr=0<CR>",
           opts
-        ) -- show  diagnostics for file
-
-        opts.desc = "Show line diagnostics"
-        keymap.set("n", "gl", vim.diagnostic.open_float, opts) -- show diagnostics for line
-
-        opts.desc = "Go to previous diagnostic"
-        keymap.set("n", "[d", vim.diagnostic.goto_prev, opts) -- jump to previous diagnostic in buffer
-
-        opts.desc = "Go to next diagnostic"
-        keymap.set("n", "]d", vim.diagnostic.goto_next, opts) -- jump to next diagnostic in buffer
-
-        opts.desc = "Show documentation for what is under cursor"
-        keymap.set("n", "K", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
-
+        )
+        opts.desc = "Line diagnostics"
+        keymap.set("n", "gl", vim.diagnostic.open_float, opts)
+        opts.desc = "Prev diagnostic"
+        keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
+        opts.desc = "Next diagnostic"
+        keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
+        opts.desc = "Hover docs"
+        keymap.set("n", "K", vim.lsp.buf.hover, opts)
         opts.desc = "Restart LSP"
-        keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
+        keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts)
       end,
     })
 
-    -- used to enable autocompletion (assign to every lsp server config)
-    local capabilities = cmp_nvim_lsp.default_capabilities()
-
-    -- Change the Diagnostic symbols in the sign column (gutter)
-    -- (not in youtube nvim video)
+    -- Diagnostic signs
     local signs =
       { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
     for type, icon in pairs(signs) do
@@ -152,137 +122,112 @@ return {
       vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
     end
 
-    mason_lspconfig.setup_handlers({
-      -- default handler for installed servers
-      function(server_name)
-        lspconfig[server_name].setup({
-          capabilities = capabilities,
-        })
-      end,
-      ["svelte"] = function()
-        -- configure svelte server
-        lspconfig["svelte"].setup({
-          capabilities = capabilities,
-          on_attach = function(client)
-            vim.api.nvim_create_autocmd("BufWritePost", {
-              pattern = { "*.js", "*.ts" },
-              callback = function(ctx)
-                -- Here use ctx.match instead of ctx.file
-                client.notify("$/onDidChangeTsOrJsFile", { uri = ctx.match })
-              end,
-            })
+    -- === v2-style server configs ===
+
+    vim.lsp.config("svelte", {
+      capabilities = capabilities,
+      on_attach = function(client, _)
+        vim.api.nvim_create_autocmd("BufWritePost", {
+          pattern = { "*.js", "*.ts" },
+          callback = function(ctx)
+            client.notify("$/onDidChangeTsOrJsFile", { uri = ctx.match })
           end,
         })
       end,
-      ["graphql"] = function()
-        -- configure graphql language server
-        lspconfig["graphql"].setup({
-          capabilities = capabilities,
-          filetypes = {
-            "graphql",
-            "gql",
-            "svelte",
-            "typescriptreact",
-            "javascriptreact",
-          },
-        })
-      end,
-      ["emmet_ls"] = function()
-        -- configure emmet language server
-        lspconfig["emmet_ls"].setup({
-          capabilities = capabilities,
-          filetypes = {
-            "html",
-            "typescriptreact",
-            "javascriptreact",
-            "css",
-            "sass",
-            "scss",
-            "less",
-            "svelte",
-          },
-        })
-      end,
-      ["solidity_ls_nomicfoundation"] = function()
-        lspconfig["solidity_ls_nomicfoundation"].setup({
-          capabilities = capabilities,
-          filetypes = { "solidity" },
-        })
-      end,
-      ["lua_ls"] = function()
-        -- configure lua server (with special settings)
-        lspconfig["lua_ls"].setup({
-          capabilities = capabilities,
-          settings = {
-            Lua = {
-              -- make the language server recognize "vim" global
-              diagnostics = {
-                globals = { "vim" },
-              },
-              completion = {
-                callSnippet = "Replace",
-              },
-            },
-          },
-        })
-      end,
-      ["sqls"] = function()
-        lspconfig["sqls"].setup({
-          capabilities = capabilities,
-          filetypes = { "sql" },
-          settings = {
-            sqls = {
-              connections = {
-                {
-                  driver = "postgresql",
-                  dataSourceName = "host=127.0.0.1 port=5432 user=postgres dbname=rapide-go sslmode=disable",
-                },
-              },
-            },
-          },
-        })
-      end,
-      ["clangd"] = function()
-        lspconfig["clangd"].setup({
-          capabilities = capabilities,
-          settings = {},
-          filetypes = { "c", "cpp", "objc", "objcpp" },
-        })
-      end,
-      ["harper_ls"] = function()
-        lspconfig["harper_ls"].setup({
-          capabilities = capabilities,
-          settings = {
-            ["harper-ls"] = {
-              userDictPath = "",
-              fileDictPath = "",
-              linters = {
-                SpellCheck = true,
-                SpelledNumbers = false,
-                AnA = true,
-                SentenceCapitalization = true,
-                UnclosedQuotes = true,
-                WrongQuotes = false,
-                LongSentences = true,
-                RepeatedWords = true,
-                Spaces = true,
-                Matcher = true,
-                CorrectNumberSuffix = true,
-              },
-              codeActions = {
-                ForceStable = false,
-              },
-              markdown = {
-                IgnoreLinkTitle = false,
-              },
-              diagnosticSeverity = "hint",
-              isolateEnglish = false,
-              dialect = "American",
-            },
-          },
-          filetypes = { "markdown", "tex", "text" },
-        })
-      end,
     })
+
+    -- vim.lsp.config("graphql", {
+    --   capabilities = capabilities,
+    --   filetypes = {
+    --     "graphql",
+    --     "gql",
+    --     "svelte",
+    --     "typescriptreact",
+    --     "javascriptreact",
+    --   },
+    -- })
+
+    vim.lsp.config("emmet_ls", {
+      capabilities = capabilities,
+      filetypes = {
+        "html",
+        "typescriptreact",
+        "javascriptreact",
+        "css",
+        "sass",
+        "scss",
+        "less",
+        "svelte",
+      },
+    })
+
+    vim.lsp.config("solidity_ls_nomicfoundation", {
+      capabilities = capabilities,
+      filetypes = { "solidity" },
+    })
+
+    vim.lsp.config("tailwindcss", {
+      capabilities = capabilities,
+      filetypes = { "css", "html", "typescriptreact", "javascriptreact" },
+    })
+
+    vim.lsp.config("lua_ls", {
+      capabilities = capabilities,
+      settings = {
+        Lua = {
+          diagnostics = { globals = { "vim" } },
+          completion = { callSnippet = "Replace" },
+        },
+      },
+    })
+
+    vim.lsp.config("sqls", {
+      capabilities = capabilities,
+      filetypes = { "sql" },
+      settings = {
+        sqls = {
+          connections = {
+            {
+              driver = "postgresql",
+              dataSourceName = "host=127.0.0.1 port=5432 user=postgres dbname=rapide-go sslmode=disable",
+            },
+          },
+        },
+      },
+    })
+
+    vim.lsp.config("clangd", {
+      capabilities = capabilities,
+      filetypes = { "c", "cpp", "objc", "objcpp" },
+    })
+
+    -- vim.lsp.config("harper_ls", {
+    --   capabilities = capabilities,
+    --   filetypes = { "markdown", "tex", "text" },
+    --   settings = {
+    --     ["harper-ls"] = {
+    --       userDictPath = "",
+    --       fileDictPath = "",
+    --       linters = {
+    --         SpellCheck = true,
+    --         SpelledNumbers = false,
+    --         AnA = true,
+    --         SentenceCapitalization = true,
+    --         UnclosedQuotes = true,
+    --         WrongQuotes = false,
+    --         LongSentences = true,
+    --         RepeatedWords = true,
+    --         Spaces = true,
+    --         Matcher = true,
+    --         CorrectNumberSuffix = true,
+    --       },
+    --       codeActions = { ForceStable = false },
+    --       markdown = { IgnoreLinkTitle = false },
+    --       diagnosticSeverity = "hint",
+    --       isolateEnglish = false,
+    --       dialect = "American",
+    --     },
+    --   },
+    -- })
   end,
 }

@@ -5,7 +5,6 @@
                 "rules": [
                     {
                         "description": "Window tiling (control+command combinations)",
-                        "enabled": false,
                         "manipulators": [
                             {
                                 "from": {

@@ -65,6 +65,7 @@ end
 # Bun JavaScript runtime
 set --export BUN_INSTALL "$HOME/.bun"
 set --export PATH $BUN_INSTALL/bin $PATH
+set -gx NODE_OPTIONS "--max-old-space-size=4096"
 
 # ===== PACKAGE MANAGERS =====
 # pnpm
