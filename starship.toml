@@ -3,6 +3,25 @@
 
 command_timeout = 10000
 
+format = """
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_state\
+$git_status\
+$cmd_duration\
+$c\
+$bun\
+$python\
+$php\
+$lua\
+$java\
+$golang\
+$rust\
+$line_break\
+$character"""
+
 palette = "custom"
 
 [palettes.custom]
@@ -22,6 +41,70 @@ bright-black = "#1F2023"
 style = "white"
 
 [character]
-success_symbol = "[❯](blue)"
-error_symbol = "[❯](red)"
-vimcmd_symbol = "[❮](green)"
+success_symbol = '[\$](grey)'
+error_symbol = '[\$](grey)'
+vimcmd_symbol = '[\$](grey)'
+
+[git_branch]
+format = '[+-$branch]($style)'
+style = "grey"
+
+[git_status]
+format = "[[(*$conflicted$untracked$modified$staged$renamed$deleted)](cyan) ($ahead_behind$stashed)]($style)"
+style = "grey"
+conflicted = "​"
+untracked = "​"
+modified = "​"
+staged = "​"
+renamed = "​"
+deleted = "​"
+stashed = "≡"
+
+[git_state]
+format = '\([$state( $progress_current/$progress_total)]($style)\) '
+style = "grey"
+
+[git_commit]
+style = "grey"
+
+[git_metrics]
+style = "grey"
+
+[cmd_duration]
+format = "[$duration]($style) "
+style = "grey"
+
+[python]
+symbol = ""
+format = '[python $version](grey)[ $virtualenv ](cyan)'
+
+[rust]
+symbol = ""
+format = '[rust $version](grey)[ $toolchain ](cyan)'
+
+[bun]
+format = '[bun $version ]($style)'
+style = "grey"
+
+[c]
+symbol = ""
+format = '[c $version ](grey)'
+
+[docker_context]
+symbol = "󰡨"
+format = '[docker](grey)[ $context ](cyan)'
+
+[php]
+symbol = ""
+format = '[php $version ](grey)'
+
+[lua]
+symbol = ""
+format = '[lua $version ](grey)'
+
+[java]
+symbol = ""
+format = '[java $version ](grey)'
+
+[golang]
+format = '[go $version ](grey)'

@@ -115,12 +115,42 @@ return {
     })
 
     -- Diagnostic signs
-    local signs =
-      { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
-    for type, icon in pairs(signs) do
-      local hl = "DiagnosticSign" .. type
-      vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-    end
+    vim.diagnostic.config({
+      signs = {
+        text = {
+          [vim.diagnostic.severity.ERROR] = " ",
+          [vim.diagnostic.severity.WARN] = " ",
+          [vim.diagnostic.severity.HINT] = "󰠠 ",
+          [vim.diagnostic.severity.INFO] = " ",
+        },
+      },
+    })
+
+    vim.lsp.config("rust_analyzer", {
+      capabilities = capabilities,
+      filetypes = { "rust" },
+      root_markers = { "Cargo.toml", ".git" },
+      single_file_support = true,
+      settings = {
+        ["rust-analyzer"] = {
+          cargo = {
+            allFeatures = true,
+          },
+        },
+      },
+    })
+
+    -- Rust Crates
+    vim.lsp.config("crates", {
+      capabilities = capabilities,
+      filetypes = { "toml" },
+      root_dir = function(fname)
+        return vim.fs.dirname(vim.fs.find({ "Cargo.toml" }, {
+          upward = true,
+          path = fname,
+        })[1])
+      end,
+    })
 
     -- === v2-style server configs ===
 
@@ -166,9 +196,32 @@ return {
       filetypes = { "solidity" },
     })
 
+    vim.lsp.config("cssls", {
+      capabilities = capabilities,
+      settings = {
+        css = {
+          validate = true,
+          lint = {
+            unknownAtRules = "ignore",
+          },
+        },
+      },
+    })
+
     vim.lsp.config("tailwindcss", {
       capabilities = capabilities,
       filetypes = { "css", "html", "typescriptreact", "javascriptreact" },
+      settings = {
+        tailwindCSS = {
+          classAttributes = {
+            "class",
+            "className",
+            "classList",
+            "ngClass",
+            ".*ClassName.*", -- Matches any prop with "Class" in the name
+          },
+        },
+      },
     })
 
     vim.lsp.config("lua_ls", {

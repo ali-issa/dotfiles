@@ -13,7 +13,7 @@ blinking = "On"
 TERM = "xterm-256color"
 
 [font]
-size = 17
+size = 15.5
 
 [font.offset]
 y = 3
@@ -47,6 +47,6 @@ decorations = "Buttonless"
 dynamic_padding = false
 startup_mode = "Maximized"
 option_as_alt = "OnlyLeft"
-# opacity = 0.95
+# opacity = 0.90
 
 [terminal]

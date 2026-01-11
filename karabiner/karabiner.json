@@ -1,75 +1,42 @@
 {
+    "global": {
+        "ask_for_confirmation_before_quitting": false,
+        "show_in_menu_bar": false
+    },
     "profiles": [
         {
             "complex_modifications": {
                 "rules": [
                     {
-                        "description": "Window tiling (control+command combinations)",
+                        "description": "Left Command + Mouse Wheel Click to Mission Control",
                         "manipulators": [
                             {
                                 "from": {
-                                    "key_code": "h",
-                                    "modifiers": {
-                                        "mandatory": ["left_control", "left_command"],
-                                        "optional": ["any"]
-                                    }
+                                    "modifiers": { "mandatory": ["left_command"] },
+                                    "pointing_button": "button3"
                                 },
-                                "to": [
-                                    {
-                                        "key_code": "left_arrow",
-                                        "modifiers": ["fn", "left_control"]
-                                    }
-                                ],
+                                "to": [{ "key_code": "mission_control" }],
                                 "type": "basic"
-                            },
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Escape key to Backtick",
+                        "manipulators": [
                             {
                                 "from": {
-                                    "key_code": "l",
-                                    "modifiers": {
-                                        "mandatory": ["left_control", "left_command"],
-                                        "optional": ["any"]
-                                    }
+                                    "key_code": "escape",
+                                    "modifiers": { "optional": ["any"] }
                                 },
-                                "to": [
-                                    {
-                                        "key_code": "right_arrow",
-                                        "modifiers": ["fn", "left_control"]
-                                    }
-                                ],
+                                "to": [{ "key_code": "grave_accent_and_tilde" }],
                                 "type": "basic"
-                            },
-                            {
-                                "from": {
-                                    "key_code": "k",
-                                    "modifiers": {
-                                        "mandatory": ["left_control", "left_command"],
-                                        "optional": ["any"]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "f",
-                                        "modifiers": ["fn", "left_control"]
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "from": {
-                                    "key_code": "j",
-                                    "modifiers": {
-                                        "mandatory": ["left_control", "left_command"],
-                                        "optional": ["any"]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "c",
-                                        "modifiers": ["fn", "left_control"]
-                                    }
-                                ],
-                                "type": "basic"
-                            },
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Window tiling (control+command combinations)",
+                        "enabled": false,
+                        "manipulators": [
                             {
                                 "from": {
                                     "key_code": "left_arrow",
@@ -251,6 +218,33 @@
                         "vendor_id": 1133
                     },
                     "ignore": true
+                },
+                {
+                    "identifiers": {
+                        "is_keyboard": true,
+                        "is_pointing_device": true,
+                        "product_id": 195,
+                        "vendor_id": 5426
+                    },
+                    "ignore_vendor_events": true
+                },
+                {
+                    "identifiers": {
+                        "is_keyboard": true,
+                        "product_id": 195,
+                        "vendor_id": 5426
+                    },
+                    "ignore": true,
+                    "ignore_vendor_events": true
+                },
+                {
+                    "identifiers": {
+                        "is_pointing_device": true,
+                        "product_id": 195,
+                        "vendor_id": 5426
+                    },
+                    "ignore": false,
+                    "ignore_vendor_events": true
                 }
             ],
             "name": "Vim",

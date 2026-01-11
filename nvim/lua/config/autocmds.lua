@@ -22,15 +22,6 @@ vim.api.nvim_create_autocmd("BufEnter", {
   end,
 })
 
--- Enable English spellcheck for Markdown files
--- vim.api.nvim_create_autocmd("FileType", {
---   pattern = "markdown",
---   callback = function()
---     vim.opt_local.spell = true
---     vim.opt_local.spelllang = { "en_us" }
---   end,
--- })
-
 -- Auto-rebalance splits on terminal resize
 vim.api.nvim_create_autocmd("VimResized", {
   pattern = "*",

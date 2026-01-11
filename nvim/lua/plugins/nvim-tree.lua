@@ -1,6 +1,6 @@
 return {
   "nvim-tree/nvim-tree.lua",
-  dependencies = "nvim-tree/nvim-web-devicons",
+  -- dependencies = "nvim-tree/nvim-web-devicons",
 
   opts = {
     diagnostics = {
@@ -24,16 +24,27 @@ return {
       highlight_git = true,
       group_empty = false,
       root_folder_modifier = ":t",
+      indent_markers = {
+        enable = true,
+        icons = {
+          corner = "└ ",
+          edge = "│ ",
+          item = "│ ",
+          none = "  ",
+        },
+      },
       icons = {
         show = {
           file = true,
           folder = true,
-          folder_arrow = true,
+          folder_arrow = false,
           git = true,
         },
         glyphs = {
           default = "",
-          symlink = "",
+          -- default = "",
+          -- symlink = "",
+          symlink = "",
           git = {
             unstaged = "",
             staged = "",

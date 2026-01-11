@@ -9,24 +9,26 @@ local theme = lush(function(injected_functions)
 
   -- Define color palette using HSL
   local palette = {
-    bg0 = hsl(225, 4, 12), -- #1D1E20
-    bg1 = hsl(225, 6, 13), -- #1F2023
-    fg = hsl(223, 6, 75), -- #BBBEC3
-    bg_d = hsl(223, 8, 18), -- #2A2C32
-    lines = hsl(220, 6, 21), -- #323438
-    yellow = hsl(56, 35, 54), -- #B2AE6A
-    orange = hsl(20, 50, 62), -- #CF8E6E
-    red = hsl(356, 73, 65), -- #E7656D
-    purple = hsl(310, 41, 64), -- #C97EBC
-    blue = hsl(209, 89, 65), -- #56A8F5
-    light_blue = hsl(198, 34, 56), -- #699EB5
-    cyan = hsl(186, 61, 45), -- #2DABB9
-    green = hsl(128, 28, 54), -- #69AB72
-    grey = hsl(222, 4, 50), -- #7A7D85
-    light_grey = hsl(220, 8, 32), -- #4B4F58
-    cursor = hsl(218, 10, 16), -- #25282D
-    dirty = hsl(27, 57, 63), -- #D69B6B
-    select = hsl(220, 60, 32), -- #214283
+    bg0 = hsl(225, 4, 12),          -- #1D1E20
+    bg1 = hsl(225, 6, 13),          -- #1F2023
+    fg = hsl(223, 6, 75),           -- #BBBEC3
+    bg_d = hsl(223, 8, 18),         -- #2A2C32
+    lines = hsl(220, 6, 21),        -- #323438
+    yellow = hsl(56, 35, 54),       -- #B2AE6A
+    yellow_muted = hsl(57, 23, 34), -- #696742
+    orange = hsl(20, 50, 62),       -- #CF8E6E
+    red = hsl(356, 73, 65),         -- #E7656D
+    red_muted = hsl(355, 32, 39),   -- #834348
+    purple = hsl(310, 41, 64),      -- #C97EBC
+    blue = hsl(209, 89, 65),        -- #56A8F5
+    light_blue = hsl(198, 34, 56),  -- #699EB5
+    cyan = hsl(186, 61, 45),        -- #2DABB9
+    green = hsl(128, 28, 54),       -- #69AB72
+    grey = hsl(222, 4, 50),         -- #7A7D85
+    light_grey = hsl(220, 8, 32),   -- #4B4F58
+    cursor = hsl(218, 10, 16),      -- #25282D
+    dirty = hsl(27, 57, 63),        -- #D69B6B
+    select = hsl(220, 60, 32),      -- #214283
   }
 
   return {
@@ -51,7 +53,7 @@ local theme = lush(function(injected_functions)
     -- EndOfBuffer    { }, -- Filler lines (~) after the end of the buffer. By default, this is highlighted like |hl-NonText|.
     -- TermCursor     { }, -- Cursor in a focused terminal
     -- TermCursorNC   { }, -- Cursor in an unfocused terminal
-    ErrorMsg({ fg = palette.red }), -- Error messages on the command line
+    ErrorMsg({ fg = palette.red }),                           -- Error messages on the command line
     -- VertSplit      { }, -- Column separating vertically split windows
     Folded({ bg = palette.cursor, fg = palette.light_grey }), -- Line used for closed folds
     -- FoldColumn     { }, -- 'foldcolumn'
@@ -71,9 +73,9 @@ local theme = lush(function(injected_functions)
     -- MoreMsg        { }, -- |more-prompt|
     -- NonText        { }, -- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line). See also |hl-EndOfBuffer|.
     Normal({ bg = palette.bg1, fg = palette.fg }),
-    NormalFloat({ bg = palette.bg1 }), -- Normal text in floating windows.
+    NormalFloat({ bg = palette.bg1 }),                     -- Normal text in floating windows.
     FloatBorder({ fg = palette.lines, bg = palette.bg1 }), -- Border of floating windows.
-    FloatTitle({ fg = palette.fg }), -- Title of floating windows.
+    FloatTitle({ fg = palette.fg }),                       -- Title of floating windows.
     -- NormalNC       { }, -- normal text in non-current windows
     -- Pmenu          { }, -- Popup menu: Normal item.
     PmenuSel({ bg = palette.grey, fg = palette.bg1, reverse = false }), -- Popup menu: Selected item.
@@ -91,36 +93,29 @@ local theme = lush(function(injected_functions)
     -- SpellCap       { }, -- Word that should start with a capital. |spell| Combined with the highlighting used otherwise.
     -- SpellLocal     { }, -- Word that is recognized by the spellchecker as one that is used in another region. |spell| Combined with the highlighting used otherwise.
     -- SpellRare      { }, -- Word that is recognized by the spellchecker as one that is hardly ever used. |spell| Combined with the highlighting used otherwise.
-    StatusLine({ bg = palette.bg_d, fg = palette.fg }), -- Status line of current window
+    StatusLine({ bg = palette.bg, fg = palette.light_grey }), -- Status line of current window
     -- StatusLineNC   { }, -- Status lines of not-current windows. Note: If this is equal to "StatusLine" Vim will use "^^^" in the status line of the current window.
-    TabLine({ fg = palette.bg0, bg = palette.bg0 }), -- Tab pages line, not active tab page label
-    TabLineFill({ fg = palette.bg0, bg = palette.bg0 }), -- Tab pages line, where there are no labels
-    TabLineSel({ fg = palette.bg0, bg = palette.bg0 }), -- Tab pages line, active tab page label
+    TabLine({ fg = palette.bg0, bg = palette.bg0 }),          -- Tab pages line, not active tab page label
+    TabLineFill({ fg = palette.bg0, bg = palette.bg0 }),      -- Tab pages line, where there are no labels
+    TabLineSel({ fg = palette.bg0, bg = palette.bg0 }),       -- Tab pages line, active tab page label
     -- Title          { }, -- Titles for output from ":set all", ":autocmd" etc.
-    Visual({ bg = palette.select.mix(palette.bg1, 10) }), -- Visual mode selection
+    Visual({ bg = palette.select.mix(palette.bg1, 10) }),     -- Visual mode selection
     -- VisualNOS      { }, -- Visual mode selection when vim is "Not Owning the Selection".
     -- WarningMsg     { }, -- Warning messages
     -- Whitespace     { }, -- "nbsp", "space", "tab" and "trail" in 'listchars'
-    WinSeparator({ fg = palette.bg_d, bg = "NONE" }), -- #1D1D1D
+    WinSeparator({ fg = palette.bg_d, bg = "NONE" }),   -- #1D1D1D
     WinSeparatorNC({ fg = palette.bg_d, bg = "NONE" }), -- #888888
     -- WildMenu       { }, -- Current match in 'wildmenu' completion
     -- WinBar         { }, -- Window bar of current window
     -- WinBarNC       { }, -- Window bar of not-current windows
     --
 
-    -- StatusLineMode({ fg = "#282828", bg = "#83a598", bold = true }),
-    -- StatusLineModeDiv({ fg = "#83a598", bg = "NONE" }),
-    -- StatusLineFile({ fg = "#ebdbb2", bg = "NONE", bold = true }),
-    -- StatusLineGit({ fg = "#b8bb26", bg = "NONE" }),
-    -- StatusLineInfo({ fg = "#fabd2f", bg = "NONE" }),
-    -- StatusLinePosition({ fg = "#fb4934", bg = "NONE" }),
-
-    StatusLineMode({ fg = palette.bg1, bg = palette.light_blue, bold = true }),
+    StatusLineMode({ fg = palette.bg1, bg = palette.light_grey, bold = true }),
     StatusLineModeDiv({ fg = palette.grey, bg = "NONE" }),
-    StatusLineFile({ fg = palette.grey, bg = "NONE" }),
+    StatusLineFile({ fg = palette.light_grey, bg = "NONE" }),
     StatusLineGit({ fg = palette.fg, bg = "NONE", bold = true }),
-    StatusLineInfo({ fg = palette.grey, bg = "NONE" }),
-    StatusLinePosition({ fg = palette.grey, bg = "NONE" }),
+    StatusLineInfo({ fg = palette.light_grey, bg = "NONE" }),
+    StatusLinePosition({ fg = palette.light_grey, bg = "NONE" }),
 
     String({ fg = palette.green }),
     Statement({ fg = palette.orange }),
@@ -133,9 +128,9 @@ local theme = lush(function(injected_functions)
 
     NvimTreeNormalNC({ bg = "NONE" }),
     NvimTreeNormal({ bg = "NONE" }),
-    NvimTreeRootFolder({ fg = palette.fg, bold = true }),
+    NvimTreeRootFolder({ fg = palette.grey, bold = true }),
     NvimTreeFolderName({ fg = palette.fg }),
-    NvimTreeEmptyFolderName({ fg = palette.fg }),
+    NvimTreeEmptyFolderName({ fg = palette.light_grey }),
     NvimTreeOpenedFolderName({ fg = palette.fg }),
     NvimTreeSymlinkFolderName({ fg = palette.fg }),
     NvimTreeGitFileDeletedHL({ fg = palette.dirty }), -- #BD817C
@@ -145,6 +140,9 @@ local theme = lush(function(injected_functions)
     NvimTreeGitFolderDeletedHL({ fg = palette.red }), -- #BD817C
     NvimTreeGitFolderDirtyHL({ fg = palette.orange }),
     NvimTreeGitFolderIgnoredHL({ fg = palette.grey }),
+    NvimTreeFolderIcon({ fg = palette.grey }),
+    NvimTreeFileIcon({ fg = palette.light_grey }),
+    NvimTreeIndentMarker(IndentLines),
 
     -- cmp
     CmpItemMenu({ bg = "NONE", fg = palette.fg }),
@@ -186,7 +184,6 @@ local theme = lush(function(injected_functions)
     FzfLuaHeaderText({ fg = palette.light_blue }),
     FzfLuaTabMarker({ fg = palette.yellow }),
     FzfLuaPathLineNr({ fg = palette.green }),
-    --
     -- FzfLuaHelpNormal({ fg = palette.green }),
     -- FzfLuaHelpBorder({ fg = palette.green }),
     -- FzfLuaPreviewNormal({ fg = palette.green }),
@@ -218,8 +215,72 @@ local theme = lush(function(injected_functions)
     -- FzfLuaFzfSpinner({ fg = palette.green }),
     -- FzfLuaFzfQuery({ fg = palette.green }),
 
+    BufferLineMuted({ bg = palette.bg1, fg = palette.light_grey }),
+    BufferLineTruncMarker(BufferLineMuted),
+    BufferLineIndicatorVisible(BufferLineMuted),
+    -- BufferLineSeparatorSelected({}),
+    -- BufferLineDuplicate({}),
+    -- BufferLineDuplicateVisible({}),
+    -- BufferLineDuplicateSelected({}),
+    -- BufferLineErrorDiagnosticSelected({}),
+    BufferLineErrorDiagnosticVisible({ fg = palette.red }),
+    BufferLineErrorDiagnostic({ fg = palette.red }),
+    BufferLineErrorSelected({ bg = palette.bg1, fg = palette.red, bold = true }),
+    BufferLineErrorVisible({ fg = palette.red_muted, italic = true }),
+    BufferLineWarningDiagnosticSelected({ bg = paletter.bg1, fg = palette.yellow, bold = true }),
+    BufferLineWarningDiagnosticVisible({ bg = paletter.bg1, fg = palette.yellow }),
+    BufferLineWarningDiagnostic({ bg = paletter.bg1, fg = palette.yellow }),
+    BufferLineWarningSelected({ bg = paletter.bg1, fg = palette.yellow, bold = true }),
+    BufferLineWarningVisible({ bg = paletter.bg1, fg = palette.yellow_muted }),
+    -- BufferLineInfoDiagnosticSelected({}),
+    -- BufferLineInfoDiagnosticVisible({}),
+    -- BufferLineInfoDiagnostic({}),
+    -- BufferLineInfoSelected({}),
+    -- BufferLineInfoVisible({}),
+    -- BufferLineHintDiagnosticSelected({}),
+    -- BufferLineHintDiagnosticVisible({}),
+    -- BufferLineHintDiagnostic({}),
+    -- BufferLineHintSelected({}),
+    -- BufferLineHintVisible({}),
+    -- BufferLineDiagnosticSelected({}),
+    -- BufferLineDiagnosticVisible({}),
+    -- BufferLineDiagnostic({}),
+    -- BufferLineNumbersSelected({}),
+    -- BufferLineCloseButtonSelected({}),
+    -- BufferLineCloseButtonVisible({}),
+    -- BufferLineCloseButton({}),
+    -- BufferLineTabClose({}),
+    -- BufferLineTabSelected({}),
+    -- BufferLineGroupLabel({}),
+    -- BufferLineGroupSeparator({}),
+    -- BufferLineSeparator({}),
+    -- BufferLineHint({}),
+    -- BufferLineTab({}),
+    BufferLineWarning({ bg = paletter.bg1, fg = palette.yellow_muted }),
+    -- BufferLineModifiedSelected({}),
+    -- BufferLineModifiedVisible({}),
+    BufferLineBackground(BufferLineMuted),
+    -- BufferLineModified({}),
+    -- BufferLineBufferSelected({}),
+    -- BufferLineNumbers({}),
+    -- BufferLineTabSeparatorSelected({}),
+    BufferLineError({ fg = palette.red_muted, italic = true }),
+    -- BufferLineBufferVisible({}),
+    -- BufferLineTabSeparator({}),
+    -- BufferLineSeparatorVisible({}),
+    -- BufferLineOffsetSeparator({}),
+    -- BufferLineNumbersVisible({}),
+    BufferLineBuffer(BufferLineMuted),
+    BufferLineFill(BufferLineMuted),
+    -- BufferLineInfo({}),
+    -- BufferLinePick({}),
+    -- BufferLinePickVisible({}),
+    -- BufferLinePickSelected({}),
+    -- BufferLineIndicatorVisible({}),
+    -- BufferLineIndicatorSelected({}),
+
     -- Visual Multi
-    -- VM_Mono        { },
+    VM_Mono(Visual),
     VM_Extend(Visual),
     VM_Cursor({ bg = palette.dirty, fg = palette.bg1 }),
     -- VM_Insert      { },
@@ -228,10 +289,10 @@ local theme = lush(function(injected_functions)
     -- LSP Diagnostic Highlights
     -- -------------------------------------------------------
     -- Main diagnostic highlights
-    DiagnosticError({ fg = palette.red }), -- Error text
+    DiagnosticError({ fg = palette.red }),   -- Error text
     DiagnosticWarn({ fg = palette.yellow }), -- Warning text
-    DiagnosticInfo({ fg = palette.blue }), -- Info text
-    DiagnosticHint({ fg = palette.cyan }), -- Hint text
+    DiagnosticInfo({ fg = palette.blue }),   -- Info text
+    DiagnosticHint({ fg = palette.cyan }),   -- Hint text
 
     -- Underline highlights
     DiagnosticUnderlineError({ fg = palette.red, undercurl = true }),
@@ -280,36 +341,36 @@ local theme = lush(function(injected_functions)
     -- sym"@text.underline"    { }, -- Underlined
     -- sym"@text.todo"         { }, -- Todo
     -- sym"@comment"           { }, -- Comment
-    sym("@punctuation")({ fg = palette.fg }), -- Delimiter
-    sym("@constant")({ fg = palette.fg }), -- Constant
+    sym("@punctuation")({ fg = palette.fg }),      -- Delimiter
+    sym("@constant")({ fg = palette.fg }),         -- Constant
     sym("@constant.builtin")({ fg = palette.fg }), -- Special
-    sym("@constant.macro")({ fg = palette.fg }), -- Define
+    sym("@constant.macro")({ fg = palette.fg }),   -- Define
     -- sym"@define"            { }, -- Define
     -- sym"@macro"             { }, -- Macro
-    sym("@string")({ fg = palette.green }), -- String
-    sym("@string.escape")({ fg = palette.green }), -- SpecialChar
+    sym("@string")({ fg = palette.green }),         -- String
+    sym("@string.escape")({ fg = palette.green }),  -- SpecialChar
     sym("@string.special")({ fg = palette.green }), -- SpecialChar
-    sym("@character")({ fg = palette.fg }), -- Character
+    sym("@character")({ fg = palette.fg }),         -- Character
     -- sym"@character.special" { }, -- SpecialChar
-    sym("@number")({ fg = palette.cyan }), -- Number
-    sym("@boolean")({ fg = palette.purple }), -- Boolean
-    sym("@float")({ fg = palette.purple }), -- Float
-    sym("@function")({ fg = palette.blue }), -- Function
-    sym("@function.builtin")({ fg = palette.fg }), -- Special
+    sym("@number")({ fg = palette.cyan }),          -- Number
+    sym("@boolean")({ fg = palette.purple }),       -- Boolean
+    sym("@float")({ fg = palette.purple }),         -- Float
+    sym("@function")({ fg = palette.blue }),        -- Function
+    sym("@function.builtin")({ fg = palette.fg }),  -- Special
     -- sym"@function.macro"    { }, -- Macro
-    sym("@parameter")({ fg = palette.fg }), -- Identifier
+    sym("@parameter")({ fg = palette.fg }),         -- Identifier
     -- sym"@method"            { }, -- Function
-    sym("@field")({ fg = palette.fg }), -- Identifier
+    sym("@field")({ fg = palette.fg }),             -- Identifier
     -- sym"@property"          { }, -- Identifier
-    sym("@constructor")({ fg = palette.fg }), -- Special
+    sym("@constructor")({ fg = palette.fg }),       -- Special
     -- sym"@conditional"       { }, -- Conditional
     -- sym"@repeat"            { }, -- Repeat
-    sym("@label")({ fg = palette.fg }), -- Label
-    sym("@operator")({ fg = palette.fg }), -- Operator
-    sym("@keyword")({ fg = palette.orange }), -- Keyword
+    sym("@label")({ fg = palette.fg }),           -- Label
+    sym("@operator")({ fg = palette.fg }),        -- Operator
+    sym("@keyword")({ fg = palette.orange }),     -- Keyword
     -- sym"@exception"         { }, -- Exception
-    sym("@variable")({ fg = palette.fg }), -- Identifier
-    sym("@type")({ fg = palette.fg }), -- Type
+    sym("@variable")({ fg = palette.fg }),        -- Identifier
+    sym("@type")({ fg = palette.fg }),            -- Type
     sym("@type.definition")({ fg = palette.fg }), -- Typedef
     -- sym"@storageclass"      { }, -- StorageClass
     -- sym"@structure"         { }, -- Structure
@@ -320,10 +381,10 @@ local theme = lush(function(injected_functions)
     sym("@tag")({ fg = palette.fg }), -- Tag
 
     -- Typescript
-    sym("@tag.tsx")({ fg = palette.yellow }), -- Tag
-    sym("@tag.jsx")({ fg = palette.yellow }), -- Tag
-    sym("@tag.builtin.tsx")({ fg = palette.yellow }), -- Tag
-    sym("@tag.builtin.jsx")({ fg = palette.yellow }), -- Tag
+    sym("@tag.tsx")({ fg = palette.yellow }),           -- Tag
+    sym("@tag.jsx")({ fg = palette.yellow }),           -- Tag
+    sym("@tag.builtin.tsx")({ fg = palette.yellow }),   -- Tag
+    sym("@tag.builtin.jsx")({ fg = palette.yellow }),   -- Tag
     sym("@tag.delimiter.tsx")({ fg = palette.yellow }), -- Tag
     sym("@tag.delimiter.jsx")({ fg = palette.yellow }), -- Tag
   }

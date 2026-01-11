@@ -10,6 +10,10 @@ return {
       if not status_ok then
         return
       end
+      -- Make background 100% transparent
+      -- vim.api.nvim_set_hl(0, "Normal", { bg = "none", blend = 100 })
+      -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none", blend = 100 })
+      -- vim.api.nvim_set_hl(0, "NormalNC", { bg = "none", blend = 100 })
     end,
   },
 }

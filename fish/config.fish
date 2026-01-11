@@ -68,6 +68,9 @@ set --export PATH $BUN_INSTALL/bin $PATH
 set -gx NODE_OPTIONS "--max-old-space-size=4096"
 
 # ===== PACKAGE MANAGERS =====
+# brew
+set -gx HOMEBREW_NO_AUTO_UPDATE 1
+
 # pnpm
 set -gx PNPM_HOME "$HOME/Library/pnpm"
 if not string match -q -- $PNPM_HOME $PATH
@@ -99,3 +102,10 @@ set -gx PATH $PATH /Users/aliissa/.cache/lm-studio/bin
 
 # Added by `rbenv init` on Sun Aug 24 16:32:54 PDT 2025
 status --is-interactive; and rbenv init - --no-rehash fish | source
+
+alias claude="/Users/aliissa/.claude/local/claude"
+
+fish_add_path -a "/Users/aliissa/.foundry/bin"
+
+# Added by Antigravity
+fish_add_path /Users/aliissa/.antigravity/antigravity/bin
